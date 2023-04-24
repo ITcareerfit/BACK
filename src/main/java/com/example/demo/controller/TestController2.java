@@ -44,12 +44,12 @@ public class TestController2 {
 	 */
 	
 	@PostMapping("/test")
-	@CrossOrigin(origins = "http://172.16.54.57:3000")
+	@CrossOrigin(origins = "http://172.16.54.57:3000")//react서버 통신
 	public @ResponseBody ResponseEntity<?> handlePostRequest(@RequestBody Map request) {
 	    // 요청 파라미터 처리
 	    String name = (String) request.get("email");
 	    String age = (String) request.get("pw");
-
+//ㅇㅇㄹㅇㄹㅇㄴㄹㄴㄹㄴㅇㄹㄴㄹㅇㄹ7
 	    
 	   System.out.println(name);
 	    
