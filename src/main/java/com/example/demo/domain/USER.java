@@ -20,49 +20,59 @@ import lombok.ToString;
 @NoArgsConstructor // jpa 필수
 @AllArgsConstructor
 @ToString
-@Entity(name = "USER")
+@Entity(name = "user")
 public class USER {
 	//https://wikidocs.net/161165
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
 	@Column(nullable = false, length = 45)
 	private String email;
+	
 	@Column(nullable = false, length = 45)
-	private String password;
-	 @Column(nullable = false, length = 45)
-	private String nm;
+	private String pw;
+	
+	@Column(nullable = false, length = 45)
+	private String userName;
+	
 	@Column(nullable = false, length = 45)
 	private String phone;
+	
 	@CreationTimestamp
 	@Column
-	private LocalDate birthday;
+	private LocalDate birth;
+	
 	@Column(columnDefinition = "LONGTEXT")
 	private String pos;
+	
 	@Column(length = 45)
-	private String company_1;
+	private String company1;
 	@Column(length = 45)
-	private String company_2;
+	private String company2;
 	@Column(length = 45)
-	private String company_3;
+	private String company3;
 	@Column(length = 45)
-	private String company_4;
+	private String company4;
 	@Column(length = 45)
-	private String company_5;
+	private String company5;
+	
 	@Column(columnDefinition = "LONGTEXT")
-	private String good_posts;
+	private String goodPosts;
+	
 	@Column(columnDefinition = "LONGTEXT")
 	private String img;
-	@Column//(nullable = false)
+	
+	@Column
 	private int profit;
-	@Column//(nullable = false)
+	@Column
 	private int stable;
-	@Column//(nullable = false)
+	@Column
 	private int grow;
+	@Column
+	private int pay;
 	@Column(columnDefinition = "LONGTEXT")
 	private String culture;
-	@Column(columnDefinition = "LONGTEXT")
-	private String img_url;
+	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer userNum;
+	
 	
 }
