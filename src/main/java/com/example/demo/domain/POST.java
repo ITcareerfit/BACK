@@ -23,28 +23,36 @@ public class POST {
 	//https://wikidocs.net/161165
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer infoId;
 	
 	@Column(nullable = false, length = 45)
-	private String company_name;
+	private String cpName;
+	
 	@Column(nullable = false, length = 45)
 	private String title;
+	
 	@Column
 	private LocalDate deadline;
 	private int type;
 	@Column(length = 45)
-	private String location;
+	private String cpLoc;
 	@Column(columnDefinition = "LONGTEXT")
-	private String pos;
+	private String infoPos;
 	@Column(columnDefinition = "LONGTEXT")
-	private String tech;
-	private int min_career;
-	private int max_career;
+	private String infoTech;
+	@Column(columnDefinition = "int default 0")
+	private int minCareer;
+	@Column(columnDefinition = "int default 20")
+	private int maxCareer;
+	@Column(columnDefinition = "int default -1")
+	private int minPay;
+	@Column(columnDefinition = "int default -1")
+	private int maxPay;
 	@Column(columnDefinition = "LONGTEXT")
-	private String post_url;
+	private String postUrl;
 	@Column(columnDefinition = "LONGTEXT")
 	private String content;
 	 @Column(columnDefinition = "int default 0")
 	private int dead;
-	private LocalDate last_check;
+	private LocalDate lastCheck;
 }

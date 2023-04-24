@@ -20,20 +20,24 @@ import lombok.ToString;
 public class COMPANY {
 	//https://wikidocs.net/161165
 	@Id
-	private String nm;
+	private String cpName;
 	
 	@Column(columnDefinition = "LONGTEXT")
-	private String company_url;
-	private int employee_num;
-	@Column//(nullable = false)
+	private String cpUrl;
+	
+	private int empNum;
+	
+	@Column
 	private int profit;
-	@Column//(nullable = false)
+	@Column
 	private int stable;
-	@Column//(nullable = false)
+	@Column
 	private int grow;
+	@Column
 	private int pay;
+	
 	@Column(columnDefinition = "LONGTEXT")
 	private String culture;
 	@Column(columnDefinition = "LONGTEXT")
-	private String img_url;
+	private String cpImg;
 }

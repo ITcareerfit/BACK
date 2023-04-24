@@ -20,7 +20,7 @@ import lombok.ToString;
 public class POSITIONS {
 	//https://wikidocs.net/161165
 	@Id
-	private String nm;
+	private String posName;
 	
 	@Column(nullable = false, length = 45)
 	private String category;
