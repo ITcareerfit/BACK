@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,8 +27,9 @@ public class POST {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer infoId;
 	
-	@Column(nullable = false, length = 45)
-	private String cpName;
+	@ManyToOne
+	@JoinColumn(name="info_cp_name", referencedColumnName="cpName")
+	private COMPANY infoCpName;
 	
 	@Column(nullable = false, length = 45)
 	private String title;
@@ -49,7 +52,7 @@ public class POST {
 	@Column(columnDefinition = "int default -1")
 	private int maxPay;
 	@Column(columnDefinition = "LONGTEXT")
-	private String postUrl;
+	private String infoUrl;
 	@Column(columnDefinition = "LONGTEXT")
 	private String content;
 	 @Column(columnDefinition = "int default 0")
