@@ -20,6 +20,7 @@ import lombok.ToString;
 public class COMPANY {
 	//https://wikidocs.net/161165
 	@Id
+	@Column
 	private String cpName;
 	
 	@Column(columnDefinition = "LONGTEXT")

@@ -27,29 +27,19 @@ import lombok.RequiredArgsConstructor;
 public class TestController2 {
 	
 	@GetMapping("/test")
-	//@CrossOrigin(origins = "http://172.16.54.57:3000", methods = RequestMethod.GET)
-	@CrossOrigin(origins = "http://localhost:3000", methods = RequestMethod.GET)
+	@CrossOrigin(origins = "http://172.16.54.57:3000")
+	//@CrossOrigin(origins = "http://localhost:3000", methods = RequestMethod.GET)
 	public String getTest() {
 		return "1";
 	}
 	
-	/*
-	 * @PostMapping("/test")
-	 * 
-	 * @CrossOrigin(origins = "http://172.16.54.57:3000", methods =
-	 * RequestMethod.POST) public String postTest(@RequestBody String
-	 * id, @RequestBody String password) { System.out.println(id);
-	 * System.out.println(password); return "get 요청" + "id = " +id + "- password ="+
-	 * password; }
-	 */
-	
 	@PostMapping("/test")
-	@CrossOrigin(origins = "http://172.16.54.57:3000")
+	@CrossOrigin(origins = "http://172.16.54.57:3000")//react서버 통신
+	//https://studyandlearn.tistory.com/m/388
 	public @ResponseBody ResponseEntity<?> handlePostRequest(@RequestBody Map request) {
 	    // 요청 파라미터 처리
 	    String name = (String) request.get("email");
 	    String age = (String) request.get("pw");
-
 	    
 	   System.out.println(name);
 	    

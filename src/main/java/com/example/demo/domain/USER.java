@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,16 +45,21 @@ public class USER {
 	@Column(columnDefinition = "LONGTEXT")
 	private String pos;
 	
-	@Column(length = 45)
-	private String company1;
-	@Column(length = 45)
-	private String company2;
-	@Column(length = 45)
-	private String company3;
-	@Column(length = 45)
-	private String company4;
-	@Column(length = 45)
-	private String company5;
+	@ManyToOne
+	@JoinColumn(name="company1", referencedColumnName="cpName")
+	private COMPANY company1;
+	@ManyToOne
+	@JoinColumn(name="company2", referencedColumnName="cpName")
+	private COMPANY company2;
+	@ManyToOne
+	@JoinColumn(name="company3", referencedColumnName="cpName")
+	private COMPANY company3;
+	@ManyToOne
+	@JoinColumn(name="company4", referencedColumnName="cpName")
+	private COMPANY company4;
+	@ManyToOne
+	@JoinColumn(name="company5", referencedColumnName="cpName")
+	private COMPANY company5;
 	
 	@Column(columnDefinition = "LONGTEXT")
 	private String goodPosts;
