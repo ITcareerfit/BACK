@@ -38,7 +38,7 @@ public class POST {
 	private LocalDate deadline;
 	private int type;
 	@Column(length = 45)
-	private String cpLoc;
+	private String infoLoc;
 	@Column(columnDefinition = "LONGTEXT")
 	private String infoPos;
 	@Column(columnDefinition = "LONGTEXT")
