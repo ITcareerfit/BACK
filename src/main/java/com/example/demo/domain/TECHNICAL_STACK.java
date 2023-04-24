@@ -20,10 +20,10 @@ import lombok.ToString;
 public class TECHNICAL_STACK {
 	//https://wikidocs.net/161165
 	@Id
-	private String nm;
+	private String techName;
 	
 	@Column(nullable = false)
-	private int type;
+	private int techType;
 	@Column
 	private int total;
 	private int year;
