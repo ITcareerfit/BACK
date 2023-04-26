@@ -10,5 +10,4 @@ import com.example.demo.domain.USER;
 public interface UserRepository extends JpaRepository<USER, String> {
 	Optional<USER> findByEmailAndPw(String email, String pw);
 	Optional<USER> findByEmail(String email); 
-	 
 }
