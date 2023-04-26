@@ -1,9 +1,13 @@
 package com.example.demo.domain;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,8 +46,14 @@ public class USER {
 	@Column
 	private LocalDate birth;
 	
-	@Column(columnDefinition = "LONGTEXT")
-	private String pos;
+	//list로 들어오는 값 스트링으로 저장
+	/*
+	 * @Column(columnDefinition = "LONGTEXT") private List<String> pos;
+	 */
+    @ElementCollection
+    @CollectionTable(name = "pos")
+    //@Column(columnDefinition = "LONGTEXT")
+    private List<String> pos;
 	
 	@ManyToOne
 	@JoinColumn(name="company1", referencedColumnName="cpName")
@@ -80,6 +90,7 @@ public class USER {
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userNum;
-	
+
+
 	
 }
