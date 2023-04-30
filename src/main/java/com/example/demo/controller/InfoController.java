@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.POST;
+import com.example.demo.repository.CompanyRepository;
 import com.example.demo.service.SearchService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/info")
 public class InfoController {
 	private final SearchService searchservice;
-	
+
 	@GetMapping
 	//info 노출
 	public ResponseEntity<POST> createUser(

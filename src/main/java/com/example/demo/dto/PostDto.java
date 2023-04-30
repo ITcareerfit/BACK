@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.example.demo.domain.COMPANY;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 public class PostDto {
     private int infoId;
@@ -33,6 +35,7 @@ public class PostDto {
     public COMPANY getInfoCpName() {
     	return infoCpName;
     }
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public void setInfoCpName(COMPANY infoCpName) {
     	this.infoCpName = infoCpName;
     }
