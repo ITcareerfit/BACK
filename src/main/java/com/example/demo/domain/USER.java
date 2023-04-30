@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -26,7 +28,10 @@ import lombok.ToString;
 @NoArgsConstructor // jpa 필수
 @AllArgsConstructor
 @ToString
-@Entity(name = "user")
+@Entity
+@Table(name = "user", uniqueConstraints = {
+	    @UniqueConstraint(name = "user_num", columnNames = "user_num")
+	})
 public class USER {
 	//https://wikidocs.net/161165
 	@Id
@@ -52,7 +57,6 @@ public class USER {
 	 */
     @ElementCollection
     @CollectionTable(name = "pos")
-    //@Column(columnDefinition = "LONGTEXT")
     private List<String> pos;
 	
 	@ManyToOne
@@ -71,8 +75,10 @@ public class USER {
 	@JoinColumn(name="company5", referencedColumnName="cpName")
 	private COMPANY company5;
 	
-	@Column(columnDefinition = "LONGTEXT")
-	private String goodPosts;
+	//@Column(columnDefinition = "LONGTEXT")
+	@ElementCollection
+    @CollectionTable(name = "goodPosts")
+	private List<Integer> goodPosts;
 	
 	@Column(columnDefinition = "LONGTEXT")
 	private String img;
@@ -89,8 +95,7 @@ public class USER {
 	private String culture;
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer userNum;
-
-
-	
+	@Column(name = "user_num", nullable =false, unique = true)
+	private int userNum;
+	//MySQL에서는 INT, BIGINT, SMALLINT 등의 정수형 데이터 타입에서 auto increment를 지원
 }

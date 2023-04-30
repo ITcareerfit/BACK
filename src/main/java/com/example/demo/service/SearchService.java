@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -29,7 +30,7 @@ import java.util.Arrays;
 public class SearchService {
     public final PostRepository postRepository;
     
-    //목록
+    //목록, 전체 노출
     public List<PostDto> findAll(){
     	List<POST> posts = postRepository.findAll();
     	List<PostDto> postDtos = new ArrayList<>();
@@ -79,7 +80,8 @@ public class SearchService {
     
     //페이징 처리
     public Page<PostDto> findAll(Pageable pageable){
-    	Page<POST> posts = postRepository.findAll(pageable);
+    	Page<POST> posts = postRepository.findNonDead(pageable);
+    	//Page<POST> posts = postRepository.findAll(pageable);
     	List<PostDto> postDtos = new ArrayList<>();
     	
     	for(POST post: posts) {
@@ -107,7 +109,7 @@ public class SearchService {
         		String[] arr = strTech.split(", ");
         		for (String s : arr) {listTech.add(s);}
     		}
-    		postDto.setInfoPos(listTech);
+    		postDto.setInfoTech(listTech);
     		postDto.setInfoLoc(post.getInfoLoc());
     		postDto.setMaxCareer(post.getMaxCareer());
     		postDto.setMinCareer(post.getMinCareer());
@@ -120,9 +122,18 @@ public class SearchService {
     	}
   
     	return new PageImpl<>(postDtos, pageable, posts.getTotalElements());
-		//return postDtos;
+    }
+    
+    public long conutInfos() {
+    	return postRepository.count();
     }
 
+	public POST findPostId(int infoId) {
+		
+		return postRepository.findByInfoId(infoId);
+	}
+
+    
     
 	/*
 	 * //상세보기 public Board detail(int idx) { return

@@ -39,7 +39,7 @@ public class SignLogController {
 	
 	//회원가입
 	@PostMapping("/signup")
-	@CrossOrigin(origins = "http://172.16.54.57:3000")//react서버 통신
+	//@CrossOrigin(origins = "http://172.16.54.57:3000")//react서버 통신
 	public ResponseEntity<Map<String, Object>> createUser(@RequestBody UserDto userDto) {
 	    USER user = new USER();
 	    user.setEmail(userDto.getEmail());
@@ -49,17 +49,19 @@ public class SignLogController {
 	    user.setPhone(userDto.getPhone());
 	    // userDto에서 pos 정보 가져오기
 	    List<String> pos = userDto.getPos();
-	    //List<String> posList = Arrays.asList("developer", "designer", "manager");
 	    user.setPos(pos);	 
 	    
 	    //회원가입
-	    signupservice.register(user);
-	    
-	    	//처리 결과 반환 
-		Map<String, Object> result = new HashMap<>();
-		result.put("message", "success"); 
-		result.put("user", user); 
-		return ResponseEntity.ok(result); 
+	    USER savedUser = signupservice.register(user);
+	    Map<String, Object> result = new HashMap<>();
+	    if(savedUser != null) {
+	    	result.put("message", "yes"); 
+			result.put("user", user); 
+			return ResponseEntity.ok(result);
+	    }else {
+	    	result.put("message", "no"); 
+			return ResponseEntity.ok(result);
+	    } 
 	}
 
 	
@@ -101,7 +103,7 @@ public class SignLogController {
 	
 	//로그인
 	@PostMapping("/login")
-	@CrossOrigin(origins = "http://172.16.54.57:3000")//react서버 통신
+	//@CrossOrigin(origins = "http://172.16.54.57:3000")//react서버 통신
 	//같은 handlePostRequest가 있을 경우에는 둘이 이름을 바꿔줘야한다.
 	//ex) handlePostRequestWithStringValues, handlePostRequestWithIntegerValues
 	ResponseEntity<?> handlePostRequestWithStringValues(@RequestBody Map<String, Object> request) { // 요청 파라미터 처리
@@ -113,12 +115,12 @@ public class SignLogController {
 		Map<String, Object> result = new HashMap<>();
 		if(flag) {
 			USER user = signupservice.detail(email);
-		    result.put("message", "success");
+		    result.put("message", "yes");
 		    result.put("user", user);
 		    return ResponseEntity.ok(result); 
 		}
 		else {
-			result.put("message", "fail");
+			result.put("message", "no");
 		    return ResponseEntity.ok(result);	
 		}	  
 	}
