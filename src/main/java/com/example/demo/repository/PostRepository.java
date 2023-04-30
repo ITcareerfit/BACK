@@ -31,11 +31,10 @@ public interface PostRepository extends JpaRepository<POST, Integer> {
 		       + "AND (p.type = :jobType OR :jobType is null) "
 		       + "AND (c.emp_num >= :employee OR :employee is null) "
 		       + "AND (p.min_pay <= :pay AND p.max_pay >= :pay OR :pay is null) "
-		       + "AND (p.min_career <= :career AND p.max_career >= :career OR :career is null)", nativeQuery = true)
+		       + "AND (p.min_career <= :career AND p.max_career >= :career OR :career is null)"
+		       , nativeQuery = true)
 		List<POST> findPostsByFilter(@Param("company") String company, @Param("jobType") String jobType,
 		        @Param("employee") int employee, @Param("pay") int pay, @Param("career") int career);
-	
-
 	
 	//+ "AND p.info_pos IN (:jobList) AND p.info_tech IN (:stackList) "
 	//@Param("jobList") List<String> jobList, @Param("stackList") List<String> stackList,

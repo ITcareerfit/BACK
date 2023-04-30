@@ -1,7 +1,11 @@
 package com.example.demo.domain;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.ElementCollection;
+
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,10 +43,19 @@ public class POST {
 	private int type;
 	@Column(length = 45)
 	private String infoLoc;
+	
 	@Column(columnDefinition = "LONGTEXT")
 	private String infoPos;
 	@Column(columnDefinition = "LONGTEXT")
 	private String infoTech;
+    /*
+	@ElementCollection
+    @CollectionTable(name = "infoTech")
+    private List<String> infoTech;
+    @ElementCollection
+    @CollectionTable(name = "infoPos")
+    private List<String> infoPos;
+    */
 	@Column(columnDefinition = "int default 0")
 	private int minCareer;
 	@Column(columnDefinition = "int default 20")
