@@ -22,10 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.domain.COMPANY;
+import com.example.demo.domain.POST;
+import com.example.demo.domain.USER;
+import com.example.demo.dto.JobDto;
 import com.example.demo.dto.PostDto;
+import com.example.demo.dto.UserDto;
 import com.example.demo.repository.PostRepository;
 import com.example.demo.service.SearchService;
-
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -58,5 +62,32 @@ public class SearchController {
 		 * headers.add("maxPage", Long.toString(searchService.conutInfos()));
 		 */
 	}
-	   
+	
+	@PostMapping
+	public ResponseEntity<Map<String, Object>> filterAll(
+			@RequestBody JobDto jobDto){
+	    // jobDto 객체 생성
+	    JobDto jobDtos = new JobDto();
+	    jobDtos.setJob(jobDto.getJob());
+	    jobDtos.setStack(jobDto.getStack());
+	    jobDtos.setCompany(jobDto.getCompany());
+	    jobDtos.setJobType(jobDto.getJobType());
+	    jobDtos.setEmployee(jobDto.getEmployee());
+	    jobDtos.setPay(jobDto.getPay());
+	    jobDtos.setCareer(jobDto.getCareer());
+
+	    // jobDto를 사용하여 포스트를 검색
+	    List<PostDto> postDtos = searchService.PostsByFilter(jobDto);
+	    
+	    Map<String, Object> result = new HashMap<>();
+	    if (!postDtos.isEmpty()) {	 
+	    	result.put("message", "yes"); 
+			result.put("postDtos", postDtos); 
+			return ResponseEntity.ok(result);
+	    }else {
+	    	result.put("message", "no"); 
+			return ResponseEntity.ok(result);
+	    } 
+	}
+	
 }
