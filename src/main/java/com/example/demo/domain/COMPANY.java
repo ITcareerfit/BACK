@@ -24,16 +24,16 @@ public class COMPANY {
 	@Column(columnDefinition = "LONGTEXT")
 	private String cpUrl;
 	
-	private int empNum;
+	private Integer empNum;
 	
 	@Column
-	private int profit;
+	private Integer profit;
 	@Column
-	private int stable;
+	private Integer stable;
 	@Column
-	private int grow;
+	private Integer grow;
 	@Column
-	private int pay;
+	private Integer pay;
 	
 	@Column(columnDefinition = "LONGTEXT")
 	private String culture;
