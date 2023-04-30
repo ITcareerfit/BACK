@@ -28,7 +28,7 @@ import com.example.demo.service.SearchService;
 
 
 import lombok.RequiredArgsConstructor;
-
+import org.springframework.http.HttpHeaders;
 
 @RestController
 @Controller
@@ -37,22 +37,26 @@ import lombok.RequiredArgsConstructor;
 public class SearchController {
 	private final SearchService searchService;
 	
-	@GetMapping 
+	/*@GetMapping 
 	public ResponseEntity<List<PostDto>> findAll(){
 		List<PostDto> postDtos = searchService.findAll();
 		
 		return new ResponseEntity<>(postDtos, HttpStatus.OK);  
-	}
+	}*/
 	
-	
-	@GetMapping("/posts")
+	@GetMapping
 	//http://localhost:8080/search/posts?page=0&size=14
 	public ResponseEntity<Page<PostDto>> findAll(
 			@RequestParam int page,
 			@RequestParam int size){
-		Pageable pageable = PageRequest.of(page, size);
+		Pageable pageable = PageRequest.of(page-1, size);
 	    Page<PostDto> postDtos = searchService.findAll(pageable);
 	    return new ResponseEntity<>(postDtos, HttpStatus.OK);
+		/*
+		 * //long->string, header로 전송
+		 * HttpHeaders headers = new HttpHeaders(); 
+		 * headers.add("maxPage", Long.toString(searchService.conutInfos()));
+		 */
 	}
 	   
 }
