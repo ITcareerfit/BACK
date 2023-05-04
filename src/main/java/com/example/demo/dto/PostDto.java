@@ -13,6 +13,7 @@ public class PostDto {
     private COMPANY infoCpName;
     private String title;
     private LocalDate deadline;
+    private Long dDay;
     private int type;
     private String infoLoc;
     private String infoPos;
@@ -81,6 +82,12 @@ public class PostDto {
 	public void setInfoPos(String infoPos) { this.infoPos = infoPos; } 
 	public String getInfoTech() { return infoTech; } 
 	public void setInfoTech(String infoTech) { this.infoTech = infoTech; }
+	public Long getDDay() {
+        return dDay;
+    }
+	public void setDDay(Long dDay) {
+		this.dDay = dDay;
+	}
 	
     public Integer getMaxCareer() {
         return maxCareer;
