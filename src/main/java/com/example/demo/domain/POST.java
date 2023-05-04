@@ -48,14 +48,14 @@ public class POST {
 	private String infoPos;
 	@Column(columnDefinition = "LONGTEXT")
 	private String infoTech;
-    /*
+    
 	@ElementCollection
-    @CollectionTable(name = "infoTech")
-    private List<String> infoTech;
+    @CollectionTable(name = "infoTechList")
+    private List<String> infoTechList;
     @ElementCollection
-    @CollectionTable(name = "infoPos")
-    private List<String> infoPos;
-    */
+    @CollectionTable(name = "infoPosList")
+    private List<String> infoPosList;
+    
 	@Column(columnDefinition = "int default 0")
 	private int minCareer;
 	@Column(columnDefinition = "int default 20")

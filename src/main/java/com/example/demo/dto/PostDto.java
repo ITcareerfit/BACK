@@ -15,10 +15,10 @@ public class PostDto {
     private LocalDate deadline;
     private int type;
     private String infoLoc;
-   // private String infoPos;
-    private List<String> infoPos;
-    //private String infoTech;
-    private List<String> infoTech;
+    private String infoPos;
+    private List<String> infoPosList;
+    private String infoTech;
+    private List<String> infoTechList;
     private int minCareer;
     private int maxCareer;
     private int minPay;
@@ -63,25 +63,25 @@ public class PostDto {
     public void setInfoLoc(String infoLoc) {
     	this.infoLoc = infoLoc;
     }
-    public List<String> getInfoPos() {
-    	return infoPos;
+    public List<String> getInfoPosList() {
+    	return infoPosList;
     }
-    public void setInfoPos(List<String> infoPos) {
-    	this.infoPos = infoPos;
+    public void setInfoPosList(List<String> infoPosList) {
+    	this.infoPosList = infoPosList;
     }
     
-    public List<String> getInfoTech() {
-    	return infoTech;
+    public List<String> getInfoTechList() {
+    	return infoTechList;
     }
-    public void setInfoTech(List<String> infoTech) {
-    	this.infoTech = infoTech;
+    public void setInfoTechList(List<String> infoTechList) {
+    	this.infoTechList = infoTechList;
     }
-	/*
-	 * public List<String> getInfoPos() { return infoPos; } public void
-	 * setInfoPos(List<String> infoPos) { this.infoPos = infoPos; } public
-	 * List<String> getInfoTech() { return infoTech; } public void
-	 * setInfoTech(List<String> infoTech) { this.infoTech = infoTech; }
-	 */
+	
+	public String getInfoPos() { return infoPos; } 
+	public void setInfoPos(String infoPos) { this.infoPos = infoPos; } 
+	public String getInfoTech() { return infoTech; } 
+	public void setInfoTech(String infoTech) { this.infoTech = infoTech; }
+	
     public Integer getMaxCareer() {
         return maxCareer;
     }

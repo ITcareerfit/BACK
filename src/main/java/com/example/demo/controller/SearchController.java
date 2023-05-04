@@ -52,17 +52,37 @@ public class SearchController {
 	    return new ResponseEntity<>(postDtos, HttpStatus.OK);
 	}
 	
-	@PostMapping()
+	@PostMapping
+	public ResponseEntity<Page<PostDto>> filterPaging(
+			@RequestParam int page,
+			@RequestParam int size,
+			@RequestBody JobDto jobDto){
+	    
+		Pageable pageable = PageRequest.of(page-1, size);
+	    Page<PostDto> postDtos = searchService.findfilterAll(pageable, jobDto);
+	    return new ResponseEntity<>(postDtos, HttpStatus.OK);
+	}
+	/*
+	@PostMapping("test")
 	public ResponseEntity<PostDtoWithInt> filterPageALL(
 			@RequestParam int page,
 			@RequestParam int size,
 			@RequestBody JobDto jobDto){
 	    // jobDto를 사용하여 포스트를 검색
 		//postDto, total 함께 반환
+		
+		System.out.println(jobDto);
 		PostDtoWithInt PDI = searchService.PostsByFilters(jobDto, page, size);
 		
 		PostDtoWithInt postDtoWithInt = searchService.PostsByFilters(jobDto, page, size);
         return ResponseEntity.ok(postDtoWithInt);
+	}
+	*/
+	@GetMapping("test")
+	public ResponseEntity<Map<String, Object>> changetojavaSerialization(){
+		searchService.listToString();
+		
+		return null;
 	}
 	
 	/*
