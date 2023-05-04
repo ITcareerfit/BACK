@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -43,10 +44,56 @@ public class SearchService {
     		postDto.setTitle(post.getTitle());
     		postDto.setDeadline(post.getDeadline());
     		postDto.setType(post.getType());
+    		postDto.setDDay(post.getDDay());
     		postDto.setInfoPos(post.getInfoPos());
     		postDto.setInfoTech(post.getInfoTech());
-    		//postDto.setInfoPosList(post.getInfoPosList());
-    		//postDto.setInfoTechList(post.getInfoTechList());
+    		postDto.setInfoPosList(post.getInfoPosList());
+    		postDto.setInfoTechList(post.getInfoTechList());
+    		postDto.setInfoLoc(post.getInfoLoc());
+    		postDto.setMaxCareer(post.getMaxCareer());
+    		postDto.setMinCareer(post.getMinCareer());
+    		postDto.setMaxPay(post.getMaxPay());
+    		postDto.setMinPay(post.getMinPay());
+    		postDto.setInfoUrl(post.getInfoUrl());
+    		postDto.setContent(post.getContent());
+
+    		postDtos.add(postDto);
+    	}
+  
+    	return new PageImpl<>(postDtos, pageable, posts.getTotalElements());
+    }    
+    
+    public PostDtoWithInt PostsByFilters(JobDto jobDto, int page, int size) {
+		// jobDto에서 필요한 정보 추출
+		String company = jobDto.getCompany();
+		String jobType = jobDto.getJobType();
+		int employee = jobDto.getEmployee();
+		int pay = jobDto.getPay();
+		int career = jobDto.getCareer();
+		List<String> jobList = jobDto.getJob();
+		List<String> stackList = jobDto.getStack();
+			    
+		//필터링
+		List<POST> posts = postRepository.findPostFilterPaging_v2(company, jobType, employee, pay, career);
+	
+    	List<PostDto> postDtos = new ArrayList<>();
+    	
+    	for(POST post: posts) {
+    		
+    		if (isFilteredByPos(post.getInfoPosList(), jobList) || isFilteredByTech(post.getInfoTechList(), stackList)) {
+                continue;
+            }
+    		
+    		PostDto postDto = new PostDto();
+    		postDto.setInfoId(post.getInfoId());
+    		postDto.setInfoCpName(post.getInfoCpName());
+    		postDto.setTitle(post.getTitle());
+    		postDto.setDeadline(post.getDeadline());
+    		
+    		postDto.setDDay(post.getDDay());
+    		postDto.setType(post.getType());
+    		postDto.setInfoPosList(post.getInfoPosList());
+    		postDto.setInfoTechList(post.getInfoTechList());
     		postDto.setInfoLoc(post.getInfoLoc());
     		postDto.setMaxCareer(post.getMaxCareer());
     		postDto.setMinCareer(post.getMinCareer());
@@ -57,9 +104,106 @@ public class SearchService {
     		
     		postDtos.add(postDto);
     	}
-  
-    	return new PageImpl<>(postDtos, pageable, posts.getTotalElements());
+
+        // postDtos 리스트의 크기 반환
+        int totalPostCount = postDtos.size();
+        
+        // paging 처리
+        int startIndex = (page-1) * size;
+        int endIndex = Math.min(startIndex + size, postDtos.size());
+        List<PostDto> pagedPostDtos = postDtos.subList(startIndex, endIndex);
+        // 전체 포스트 개수와 paging 처리된 포스트 목록 반환
+        return new PostDtoWithInt(pagedPostDtos, totalPostCount);
     }
+
+	private boolean isFilteredByPos(List<String> infoPos, List<String> jobList) {
+	    if (jobList == null || jobList.isEmpty()) {
+	        return false;
+	    }
+
+	    for (String list : infoPos) {
+	        for (String jobListElement : jobList) {
+	            if (list.equals(jobListElement)) {
+	                return false;
+	            }
+	        }
+	    }
+	    return true;
+	}
+
+	private boolean isFilteredByTech(List<String> infoTech, List<String> stackList) {
+	    if (stackList == null || stackList.isEmpty()) {
+	        return false;
+	    }
+
+	    for (String list : infoTech) {
+	        for (String stackListElement : stackList) {
+	            if (list.equals(stackListElement)) {
+	                return false;
+	            }
+	        }
+	    }
+	    return true;
+	}
+	
+	//post에 있는 string pos, tech -> list로 변환, 날짜 갱신
+	public void listToString() {
+		List<POST> posts = postRepository.findAll();
+    	
+    	for(POST post: posts) {
+    		
+    		if(post.getDeadline() != null) {
+    			LocalDate date1 = LocalDate.now();
+                LocalDate date2 = post.getDeadline();
+
+                try {
+                    if (date1.isAfter(date2)) {
+                        throw new Exception();
+                    }
+                    // 두 날짜 사이의 기간 계산 등의 로직을 작성합니다.
+                    Long daysBetween = ChronoUnit.DAYS.between(date1, date2);
+                    //System.out.println("Days between: " + daysBetween);
+                    post.setDDay(daysBetween);
+                } catch (Exception e) {
+                	post.setDead(1);
+                    //System.out.println("예외 발생: " + e.getMessage());
+                }
+    		}
+    		
+    		if(post.getInfoPosList() == null || post.getInfoTechList() == null) {
+    			List<String> listPos = getListFromString(post.getInfoPos());
+    	        post.setInfoPosList(listPos);
+    	        List<String> listTech = getListFromString(post.getInfoTech());
+        		post.setInfoTechList(listTech);
+        			
+    		}
+    		
+    		postRepository.save(post);
+    	}	
+	}
+
+	
+	private List<String> getListFromString(String str) {
+	    List<String> list = new ArrayList<>();
+	    if (str != null) {
+	        str = str.replaceAll("[\\[\\]']", "");
+	        String[] arr = str.split(", ");
+	        for (String s : arr) {
+	            list.add(s);
+	        }
+	    }
+	    return list;
+	}
+    
+    
+    public long conutInfos() {
+    	return postRepository.count();
+    }
+
+	public POST findPostId(int infoId) {
+		return postRepository.findByInfoId(infoId);
+	}
+	/*
     public Page<PostDto> findfilterAll(Pageable pageable, JobDto jobDto) {
 		// jobDto에서 필요한 정보 추출
 		String company = jobDto.getCompany();
@@ -72,6 +216,7 @@ public class SearchService {
 			    
 		//필터링
 		Page<POST> posts = postRepository.findPostFilterPageing(pageable, company, jobType, employee, pay, career, jobList, stackList);
+	
 		//Page<POST> posts = postRepository.findNonDead(pageable);
     	List<PostDto> postDtos = new ArrayList<>();
     	
@@ -94,48 +239,12 @@ public class SearchService {
     		
     		postDtos.add(postDto);
     	}
-  
+
+    	
     	return new PageImpl<>(postDtos, pageable, posts.getTotalElements());
     }
-
+    */
 	
-	//post에 있는 string pos, tech -> list로 변환
-	public void listToString() {
-		List<POST> posts = postRepository.findAll();
-    	
-    	for(POST post: posts) {
-	        List<String> listPos = getListFromString(post.getInfoPos());
-	        post.setInfoPosList(listPos);
-	        List<String> listTech = getListFromString(post.getInfoTech());
-    		post.setInfoTechList(listTech);
-    		
-    		postRepository.save(post);
-    	}	
-	}
-	
-	private List<String> getListFromString(String str) {
-	    List<String> list = new ArrayList<>();
-	    if (str != null) {
-	        str = str.replaceAll("[\\[\\]']", "");
-	        String[] arr = str.split(", ");
-	        for (String s : arr) {
-	            list.add(s);
-	        }
-	    }
-	    return list;
-	}
-    
-    
-    public long conutInfos() {
-    	return postRepository.count();
-    }
-
-	public POST findPostId(int infoId) {
-		return postRepository.findByInfoId(infoId);
-	}
-	
-    
-    
     /*
     //목록, 전체 노출
     public List<PostDto> findAll(){

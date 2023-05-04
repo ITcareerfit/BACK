@@ -40,6 +40,8 @@ public class POST {
 	
 	@Column
 	private LocalDate deadline;
+	@Column
+	private Long dDay;
 	private int type;
 	@Column(length = 45)
 	private String infoLoc;
