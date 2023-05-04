@@ -27,6 +27,7 @@ import com.example.demo.domain.POST;
 import com.example.demo.domain.USER;
 import com.example.demo.dto.JobDto;
 import com.example.demo.dto.PostDto;
+import com.example.demo.dto.PostDtoWithInt;
 import com.example.demo.dto.UserDto;
 import com.example.demo.repository.PostRepository;
 import com.example.demo.service.SearchService;
@@ -41,13 +42,6 @@ import org.springframework.http.HttpHeaders;
 public class SearchController {
 	private final SearchService searchService;
 	
-	/*@GetMapping 
-	public ResponseEntity<List<PostDto>> findAll(){
-		List<PostDto> postDtos = searchService.findAll();
-		
-		return new ResponseEntity<>(postDtos, HttpStatus.OK);  
-	}*/
-	
 	@GetMapping
 	//http://localhost:8080/search/posts?page=0&size=14
 	public ResponseEntity<Page<PostDto>> findAll(
@@ -56,28 +50,55 @@ public class SearchController {
 		Pageable pageable = PageRequest.of(page-1, size);
 	    Page<PostDto> postDtos = searchService.findAll(pageable);
 	    return new ResponseEntity<>(postDtos, HttpStatus.OK);
-		/*
-		 * //long->string, header로 전송
-		 * HttpHeaders headers = new HttpHeaders(); 
-		 * headers.add("maxPage", Long.toString(searchService.conutInfos()));
-		 */
 	}
 	
 	@PostMapping
+	public ResponseEntity<Page<PostDto>> filterPaging(
+			@RequestParam int page,
+			@RequestParam int size,
+			@RequestBody JobDto jobDto){
+	    
+		Pageable pageable = PageRequest.of(page-1, size);
+	    Page<PostDto> postDtos = searchService.findfilterAll(pageable, jobDto);
+	    return new ResponseEntity<>(postDtos, HttpStatus.OK);
+	}
+	/*
+	@PostMapping("test")
+	public ResponseEntity<PostDtoWithInt> filterPageALL(
+			@RequestParam int page,
+			@RequestParam int size,
+			@RequestBody JobDto jobDto){
+	    // jobDto를 사용하여 포스트를 검색
+		//postDto, total 함께 반환
+		
+		System.out.println(jobDto);
+		PostDtoWithInt PDI = searchService.PostsByFilters(jobDto, page, size);
+		
+		PostDtoWithInt postDtoWithInt = searchService.PostsByFilters(jobDto, page, size);
+        return ResponseEntity.ok(postDtoWithInt);
+	}
+	*/
+	@GetMapping("test")
+	public ResponseEntity<Map<String, Object>> changetojavaSerialization(){
+		searchService.listToString();
+		
+		return null;
+	}
+	
+	/*
+	@GetMapping 
+	public ResponseEntity<List<PostDto>> findAll(){
+		List<PostDto> postDtos = searchService.findAll();
+		
+		return new ResponseEntity<>(postDtos, HttpStatus.OK);  
+	}
+	
+	@PostMapping("/all")
 	public ResponseEntity<Map<String, Object>> filterAll(
 			@RequestBody JobDto jobDto){
-	    // jobDto 객체 생성
-	    JobDto jobDtos = new JobDto();
-	    jobDtos.setJob(jobDto.getJob());
-	    jobDtos.setStack(jobDto.getStack());
-	    jobDtos.setCompany(jobDto.getCompany());
-	    jobDtos.setJobType(jobDto.getJobType());
-	    jobDtos.setEmployee(jobDto.getEmployee());
-	    jobDtos.setPay(jobDto.getPay());
-	    jobDtos.setCareer(jobDto.getCareer());
-
 	    // jobDto를 사용하여 포스트를 검색
-	    List<PostDto> postDtos = searchService.PostsByFilter(jobDto);
+		List<PostDto> postDtos = searchService.PostsByFilter(jobDto);
+	    //List<PostDto> postDtos = searchService.PostsByFilters(jobDto, (page-1)*size, (page-1)*size + size);
 	    
 	    Map<String, Object> result = new HashMap<>();
 	    if (!postDtos.isEmpty()) {	 
@@ -89,5 +110,5 @@ public class SearchController {
 			return ResponseEntity.ok(result);
 	    } 
 	}
-	
+	*/
 }
