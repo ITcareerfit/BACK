@@ -84,13 +84,16 @@ public class USER {
 	private String img;
 	
 	@Column
-	private int profit;
+	private Double profit;
 	@Column
-	private int stable;
+	private Double stable;
 	@Column
-	private int grow;
+	private Double grow;
 	@Column
-	private int pay;
+	private Double pay;
+	@Column
+	private Double scale;
+	
 	@Column(columnDefinition = "LONGTEXT")
 	private String culture;
 	

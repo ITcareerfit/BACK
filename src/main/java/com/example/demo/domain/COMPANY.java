@@ -32,13 +32,15 @@ public class COMPANY {
 	private Integer empNum;
 	
 	@Column
-	private Integer profit;
+	private Double profit;
 	@Column
-	private Integer stable;
+	private Double stable;
 	@Column
-	private Integer grow;
+	private Double grow;
 	@Column
-	private Integer pay;
+	private Double pay;
+	@Column
+	private Double scale;
 	
 	@Column(columnDefinition = "LONGTEXT")
 	private String culture;
