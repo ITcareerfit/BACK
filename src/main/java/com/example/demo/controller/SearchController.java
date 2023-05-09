@@ -43,7 +43,6 @@ public class SearchController {
 	private final SearchService searchService;
 	
 	@GetMapping
-	//http://localhost:8080/search/posts?page=0&size=14
 	public ResponseEntity<Page<PostDto>> findAll(
 			@RequestParam int page,
 			@RequestParam int size){

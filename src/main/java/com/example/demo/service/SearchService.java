@@ -54,7 +54,7 @@ public class SearchService {
     		postDto.setMinCareer(post.getMinCareer());
     		postDto.setMaxPay(post.getMaxPay());
     		postDto.setMinPay(post.getMinPay());
-    		postDto.setInfoUrl(post.getInfoUrl());
+    		//postDto.setInfoUrl(post.getInfoUrl());
     		postDto.setContent(post.getContent());
 
     		postDtos.add(postDto);
@@ -99,7 +99,7 @@ public class SearchService {
     		postDto.setMinCareer(post.getMinCareer());
     		postDto.setMaxPay(post.getMaxPay());
     		postDto.setMinPay(post.getMinPay());
-    		postDto.setInfoUrl(post.getInfoUrl());
+    		//postDto.setInfoUrl(post.getInfoUrl());
     		postDto.setContent(post.getContent());
     		
     		postDtos.add(postDto);
@@ -203,6 +203,7 @@ public class SearchService {
 	public POST findPostId(int infoId) {
 		return postRepository.findByInfoId(infoId);
 	}
+	
 	/*
     public Page<PostDto> findfilterAll(Pageable pageable, JobDto jobDto) {
 		// jobDto에서 필요한 정보 추출

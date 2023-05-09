@@ -24,7 +24,7 @@ public class PostDto {
     private int maxCareer;
     private int minPay;
     private int maxPay;
-    private String infoUrl;
+    //private String infoUrl;
     private String content;
     
     public Integer getInfoId() {
@@ -113,12 +113,11 @@ public class PostDto {
     public void setMinPay(int minPay) {
         this.minPay = minPay;
     }
-    public String getInfoUrl() {
-    	return infoUrl;
-    }
-    public void setInfoUrl(String infoUrl) {
-    	this.infoUrl = infoUrl;
-    }
+
+	/*
+	 * public String getInfoUrl() { return infoUrl; } public void setInfoUrl(String
+	 * infoUrl) { this.infoUrl = infoUrl; }
+	 */
     public String getContent() {
     	return content;
     }

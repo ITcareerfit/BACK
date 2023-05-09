@@ -19,6 +19,11 @@ public class UserDto {
     private COMPANY company3;
     private COMPANY company4;
     private COMPANY company5;
+    private double grow;
+    private double pay;
+    private double profit;
+    private double stable;
+    private double scale;
 
     public String getEmail() {
         return email;
@@ -92,5 +97,36 @@ public class UserDto {
     public void setCompany5(COMPANY company5) {
         this.company5 = company5;
     }
+    public double getGrow() {
+    	return grow;
+    }
+    public void setGrow(double grow) {
+    	this.grow = grow;
+    }
+    public double getPay() {
+    	return pay;
+    }
+    public void setPay(double pay) {
+    	this.pay = pay;
+    }
+    public double getStable() {
+    	return stable;
+    }
+    public void setStable(double stable) {
+    	this.stable = stable;
+    }
+    public double getProfit() {
+    	return profit;
+    }
+    public void setProfit(double profit) {
+    	this.profit = profit;
+    }
+    public double getScale() {
+    	return scale;
+    }
+    public void setScale(double scale) {
+    	this.scale = scale;
+    }
+    
 }
 

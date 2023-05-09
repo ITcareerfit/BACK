@@ -3,7 +3,6 @@ package com.example.demo.dto;
 import java.util.List;
 
 import com.example.demo.domain.COMPANY;
-import com.example.demo.repository.CompanyRepository;
 
 public class JobDto {
 

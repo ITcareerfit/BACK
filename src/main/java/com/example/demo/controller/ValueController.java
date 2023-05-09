@@ -17,16 +17,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.COMPANY;
 import com.example.demo.domain.USER;
+import com.example.demo.domain.POST;
+import com.example.demo.dto.ValueDto;
 import com.example.demo.dto.PostDto;
+import com.example.demo.dto.PostDtoWithInt;
 import com.example.demo.dto.UserDto;
 import com.example.demo.repository.CompanyRepository;
 import com.example.demo.repository.PostRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.SignUpService;
+import com.example.demo.service.ValueService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,5 +39,22 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/value")
 @RequiredArgsConstructor
 public class ValueController {
+	private final ValueService valueservice;
+	private final UserRepository userRepository;
 	
+	@PostMapping
+	public ResponseEntity<USER> valueFilter(
+			@RequestBody ValueDto valueDto){
+		USER user = valueservice.valueFilter(valueDto);
+	    
+        return ResponseEntity.ok(user);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<PostDto>> valuePosts(
+			@RequestParam String cpName){
+		List<PostDto>postDtos = valueservice.valuecomPosts(cpName);
+		
+		return ResponseEntity.ok(postDtos);
+	}
 }
