@@ -203,6 +203,7 @@ public class SearchService {
 	public POST findPostId(int infoId) {
 		return postRepository.findByInfoId(infoId);
 	}
+	
 	/*
     public Page<PostDto> findfilterAll(Pageable pageable, JobDto jobDto) {
 		// jobDto에서 필요한 정보 추출

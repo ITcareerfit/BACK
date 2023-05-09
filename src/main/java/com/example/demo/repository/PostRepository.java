@@ -36,7 +36,12 @@ public interface PostRepository extends JpaRepository<POST, Integer> {
 	List<POST> findPostFilterPaging_v2(@Param("company")String company, @Param("jobType")String jobType, 
 			@Param("employee")int employee, @Param("pay")int pay, @Param("career")int career);
 	
-	List<POST> findByInfoCpName(COMPANY com);
+	@Query(value = "SELECT p.info_id, p.content, p.dead, p.deadline, p.info_pos, p.info_tech, p.last_check, p.d_day, "
+			+ "p.max_career, p.min_career, p.max_pay, p.min_pay, p.title, p.type, p.info_cp_name, p.info_loc, p.info_pos_list, p.info_tech_list "
+			+ "FROM post p "
+			+ "WHERE p.dead = 0 "
+			+ "AND p.info_cp_name = :cpname ", nativeQuery = true)
+	List<POST> findvaluePosts(@Param("cpname")String name);
 
 /*	
 	@Query(value = "SELECT p.info_id, p.content, p.dead, p.deadline, p.info_pos, p.info_tech, p.last_check, "

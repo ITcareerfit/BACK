@@ -23,6 +23,7 @@ import com.example.demo.domain.COMPANY;
 import com.example.demo.domain.USER;
 import com.example.demo.domain.POST;
 import com.example.demo.dto.ValueDto;
+import com.example.demo.dto.PostDto;
 import com.example.demo.dto.PostDtoWithInt;
 import com.example.demo.dto.UserDto;
 import com.example.demo.repository.CompanyRepository;
@@ -50,10 +51,10 @@ public class ValueController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<POST>> valuePosts(
+	public ResponseEntity<List<PostDto>> valuePosts(
 			@RequestParam String cpName){
-		List<POST>posts = valueservice.valuecomPosts(cpName);
+		List<PostDto>postDtos = valueservice.valuecomPosts(cpName);
 		
-		return ResponseEntity.ok(posts);
+		return ResponseEntity.ok(postDtos);
 	}
 }

@@ -66,9 +66,6 @@ public class POST {
 	private int minPay;
 	@Column(columnDefinition = "int default -1")
 	private int maxPay;
-	//@Column(columnDefinition = "LONGTEXT")
-	//@Column(length = 255)
-	//private String infoUrl;
 	@Column(columnDefinition = "LONGTEXT")
 	private String content;
 	 @Column(columnDefinition = "int default 0")

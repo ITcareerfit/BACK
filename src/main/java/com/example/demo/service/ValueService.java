@@ -12,6 +12,7 @@ import jakarta.transaction.Transactional;
 import com.example.demo.domain.COMPANY;
 import com.example.demo.domain.POST;
 import com.example.demo.domain.USER;
+import com.example.demo.dto.PostDto;
 import com.example.demo.dto.ValueDto;
 
 import lombok.RequiredArgsConstructor;
@@ -95,13 +96,35 @@ public class ValueService {
 		return userRepository.findByUserNum(usernum);
 	}
 
-	public List<POST> valuecomPosts(String cpName) {
+
+	public List<PostDto> valuecomPosts(String cpName) {
+		System.out.println(cpName);
+		String name = cpName;
+		List<POST> posts = postrepository.findvaluePosts(name);
 		
-		COMPANY com = companyrepository.findByCpName(cpName);
-		List<POST> posts = postrepository.findByInfoCpName(com);
+		List<PostDto> postDtos = new ArrayList<>();
+    	
+    	for(POST post: posts) {	
+    		PostDto postDto = new PostDto();
+    		postDto.setInfoId(post.getInfoId());
+    		postDto.setInfoCpName(post.getInfoCpName());
+    		postDto.setTitle(post.getTitle());
+    		postDto.setDeadline(post.getDeadline());
+    		
+    		postDto.setDDay(post.getDDay());
+    		postDto.setType(post.getType());
+    		postDto.setInfoPosList(post.getInfoPosList());
+    		postDto.setInfoTechList(post.getInfoTechList());
+    		postDto.setInfoLoc(post.getInfoLoc());
+    		postDto.setMaxCareer(post.getMaxCareer());
+    		postDto.setMinCareer(post.getMinCareer());
+    		postDto.setMaxPay(post.getMaxPay());
+    		postDto.setMinPay(post.getMinPay());
+    		postDto.setContent(post.getContent());
+    		
+    		postDtos.add(postDto);
+    	}
 		
-		return null;
+		return postDtos;
 	}
-	
-	
 }
