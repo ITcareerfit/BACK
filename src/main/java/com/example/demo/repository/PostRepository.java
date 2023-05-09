@@ -24,7 +24,7 @@ public interface PostRepository extends JpaRepository<POST, Integer> {
 	POST findByInfoId(Integer infoId);
 
 	@Query(value = "SELECT p.info_id, p.content, p.dead, p.deadline, p.info_pos, p.info_tech, p.last_check, p.d_day, "
-			+ "p.max_career, p.min_career, p.max_pay, p.min_pay, p.title, p.type, p.info_cp_name, p.info_url, p.info_loc, p.info_pos_list, p.info_tech_list "
+			+ "p.max_career, p.min_career, p.max_pay, p.min_pay, p.title, p.type, p.info_cp_name, p.info_loc, p.info_pos_list, p.info_tech_list "
 			+ "FROM post p, company c "
 			+ "WHERE p.info_cp_name = c.cp_name "
 			+ "AND p.dead = 0 "
@@ -35,6 +35,8 @@ public interface PostRepository extends JpaRepository<POST, Integer> {
 			+ "AND (:career is null OR (p.min_career <= :career AND p.max_career >= :career) OR p.min_career > :career ) ", nativeQuery = true)
 	List<POST> findPostFilterPaging_v2(@Param("company")String company, @Param("jobType")String jobType, 
 			@Param("employee")int employee, @Param("pay")int pay, @Param("career")int career);
+	
+	List<POST> findByInfoCpName(COMPANY com);
 
 /*	
 	@Query(value = "SELECT p.info_id, p.content, p.dead, p.deadline, p.info_pos, p.info_tech, p.last_check, "

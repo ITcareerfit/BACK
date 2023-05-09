@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.COMPANY;
 import com.example.demo.domain.USER;
+import com.example.demo.domain.POST;
 import com.example.demo.dto.ValueDto;
 import com.example.demo.dto.PostDtoWithInt;
 import com.example.demo.dto.UserDto;
@@ -46,5 +47,13 @@ public class ValueController {
 		USER user = valueservice.valueFilter(valueDto);
 	    
         return ResponseEntity.ok(user);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<POST>> valuePosts(
+			@RequestParam String cpName){
+		List<POST>posts = valueservice.valuecomPosts(cpName);
+		
+		return ResponseEntity.ok(posts);
 	}
 }

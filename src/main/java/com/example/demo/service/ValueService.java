@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.PostRepository;
 import com.example.demo.repository.CompanyRepository;
 
 import jakarta.transaction.Transactional;
@@ -26,6 +27,7 @@ import java.util.Optional;
 public class ValueService {
 	private final UserRepository userRepository;
 	private final CompanyRepository companyrepository;
+	private final PostRepository postrepository;
 	
 	/*
 	 * //UserRepository가 final 키워드로 선언되어 있기 때문에 생성자에서 초기화해야 합니다. //이렇게 생성자에서 초기화하면
@@ -91,6 +93,14 @@ public class ValueService {
 		userRepository.save(user);
 		
 		return userRepository.findByUserNum(usernum);
+	}
+
+	public List<POST> valuecomPosts(String cpName) {
+		
+		COMPANY com = companyrepository.findByCpName(cpName);
+		List<POST> posts = postrepository.findByInfoCpName(com);
+		
+		return null;
 	}
 	
 	

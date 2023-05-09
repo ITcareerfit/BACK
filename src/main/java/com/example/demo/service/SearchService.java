@@ -54,7 +54,7 @@ public class SearchService {
     		postDto.setMinCareer(post.getMinCareer());
     		postDto.setMaxPay(post.getMaxPay());
     		postDto.setMinPay(post.getMinPay());
-    		postDto.setInfoUrl(post.getInfoUrl());
+    		//postDto.setInfoUrl(post.getInfoUrl());
     		postDto.setContent(post.getContent());
 
     		postDtos.add(postDto);
@@ -99,7 +99,7 @@ public class SearchService {
     		postDto.setMinCareer(post.getMinCareer());
     		postDto.setMaxPay(post.getMaxPay());
     		postDto.setMinPay(post.getMinPay());
-    		postDto.setInfoUrl(post.getInfoUrl());
+    		//postDto.setInfoUrl(post.getInfoUrl());
     		postDto.setContent(post.getContent());
     		
     		postDtos.add(postDto);
