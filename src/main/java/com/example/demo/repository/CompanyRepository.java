@@ -14,4 +14,7 @@ import com.example.demo.domain.USER;
 //jpa 사용법+sql문 받아옴
 public interface CompanyRepository extends JpaRepository<COMPANY, String> {
 	COMPANY findByCpName(String companyName);
+	
+	@Query("SELECT c FROM company c WHERE c.grow <> 0")
+	List<COMPANY> findGroup();
 }

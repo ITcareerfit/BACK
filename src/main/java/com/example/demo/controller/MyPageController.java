@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.COMPANY;
 import com.example.demo.domain.USER;
+import com.example.demo.dto.PostDto;
 import com.example.demo.repository.CompanyRepository;
-import com.example.demo.service.SignUpService;
+import com.example.demo.service.ValueService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,17 +29,13 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/mypage")
 @RequiredArgsConstructor
 public class MyPageController {
-	private final SignUpService signupservice;
+	private final ValueService valueservice;
 	
 	@GetMapping
-	public ResponseEntity<Map<String, Object>> createUser(
-			@RequestParam int userNum) {
-		USER user = new USER();
-		List<COMPANY> companysinfo = signupservice.findUserCompany(userNum); 
-	    
-		Map<String, Object> result = new HashMap<>();
-		result.put("companysinfo",companysinfo);
+	public ResponseEntity<List<PostDto>> createUser(
+			@RequestParam String cpName) {
+		List<PostDto>postDtos = valueservice.valuecomPosts(cpName);
 	    //result.put("message", "no");
-		return ResponseEntity.ok(result); 
+		return ResponseEntity.ok(postDtos); 
 	}
 }

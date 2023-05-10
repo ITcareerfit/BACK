@@ -58,7 +58,7 @@ public class ValueService {
 		//들어오는 값 기준으로 
 		Collections.sort(list, Comparator.comparingDouble(o -> o[0]));
 		
-		List<COMPANY> companys = companyrepository.findAll();
+		List<COMPANY> companys = companyrepository.findGroup();
 		
 		List<Object[]>comLists = new ArrayList<>();
 		for(COMPANY company: companys) {
