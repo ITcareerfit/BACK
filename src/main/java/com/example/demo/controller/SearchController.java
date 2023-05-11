@@ -25,12 +25,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.domain.COMPANY;
 import com.example.demo.domain.POST;
 import com.example.demo.domain.USER;
+import com.example.demo.domain.TECHNICAL_STACK;
 import com.example.demo.dto.JobDto;
 import com.example.demo.dto.PostDto;
 import com.example.demo.dto.PostDtoWithInt;
 import com.example.demo.dto.UserDto;
 import com.example.demo.repository.PostRepository;
+
 import com.example.demo.service.SearchService;
+import com.example.demo.service.Technical_StackService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -41,7 +44,9 @@ import org.springframework.http.HttpHeaders;
 @RequiredArgsConstructor
 public class SearchController {
 	private final SearchService searchService;
+	private final Technical_StackService technical_stackservice;
 	
+	/*
 	@GetMapping
 	public ResponseEntity<Page<PostDto>> findAll(
 			@RequestParam int page,
@@ -49,6 +54,22 @@ public class SearchController {
 		Pageable pageable = PageRequest.of(page-1, size);
 	    Page<PostDto> postDtos = searchService.findAll(pageable);
 	    return new ResponseEntity<>(postDtos, HttpStatus.OK);
+	}*/
+	
+	//테크 공고 정보들 전송
+	@GetMapping
+	public ResponseEntity<Map<String, Object>> findAll(
+			@RequestParam int page,
+			@RequestParam int size){
+		Pageable pageable = PageRequest.of(page-1, size);
+	    Page<PostDto> postDtos = searchService.findAll(pageable);
+	    List<TECHNICAL_STACK> stacks = technical_stackservice.findStacks();
+	    
+	    Map<String, Object> result = new HashMap<>();
+	    
+	    result.put("techs", stacks); 
+		result.put("postDto", postDtos); 
+		return ResponseEntity.ok(result);
 	}
 	
 	@PostMapping

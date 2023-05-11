@@ -24,7 +24,7 @@ public class TECHNICAL_STACK {
 	
 	@Column(nullable = false)
 	private int techType;
-	@Column
+	@Column(columnDefinition = "int default 0")
 	private int total;
 	private int year;
 	private int month;
