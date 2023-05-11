@@ -71,4 +71,5 @@ public class POST {
 	 @Column(columnDefinition = "int default 0")
 	private int dead;
 	private LocalDate lastCheck;
+	private LocalDate reg_date;
 }

@@ -37,6 +37,7 @@ public class ValueService {
 	 * userRepository; this.companyrepository = companyrepository; }
 	 */
 	
+	//회사 필터링 제공
 	public USER valueFilter(ValueDto valueDto) {
 		
 		int usernum = valueDto.getUserNum();
@@ -96,7 +97,7 @@ public class ValueService {
 		return userRepository.findByUserNum(usernum);
 	}
 
-
+	//관련 기업 공고 보여줌
 	public List<PostDto> valuecomPosts(String cpName) {
 		System.out.println(cpName);
 		String name = cpName;

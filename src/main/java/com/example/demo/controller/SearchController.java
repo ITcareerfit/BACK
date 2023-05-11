@@ -56,6 +56,7 @@ public class SearchController {
 	    return new ResponseEntity<>(postDtos, HttpStatus.OK);
 	}*/
 	
+	//테크 공고 정보들 전송
 	@GetMapping
 	public ResponseEntity<Map<String, Object>> findAll(
 			@RequestParam int page,
