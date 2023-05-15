@@ -181,7 +181,6 @@ public class SearchService {
     		postRepository.save(post);
     	}	
 	}
-
 	
 	private List<String> getListFromString(String str) {
 	    List<String> list = new ArrayList<>();
@@ -194,7 +193,6 @@ public class SearchService {
 	    }
 	    return list;
 	}
-    
     
     public long conutInfos() {
     	return postRepository.count();
