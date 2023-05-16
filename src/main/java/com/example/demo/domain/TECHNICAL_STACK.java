@@ -40,4 +40,6 @@ public class TECHNICAL_STACK {
 	private int techType;
 	@Column(columnDefinition = "int default 0")
 	private int total;
+	@Column 
+	private String posName;
 }

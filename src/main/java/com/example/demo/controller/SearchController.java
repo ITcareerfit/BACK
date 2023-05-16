@@ -33,6 +33,7 @@ import com.example.demo.dto.UserDto;
 import com.example.demo.repository.PostRepository;
 
 import com.example.demo.service.SearchService;
+import com.example.demo.service.SignUpService;
 import com.example.demo.service.Technical_StackService;
 
 import lombok.RequiredArgsConstructor;
@@ -45,6 +46,7 @@ import org.springframework.http.HttpHeaders;
 public class SearchController {
 	private final SearchService searchService;
 	private final Technical_StackService technical_stackservice;
+	private final SignUpService signupservice;
 	
 	/*
 	@GetMapping
@@ -71,7 +73,7 @@ public class SearchController {
 		result.put("postDto", postDtos); 
 		return ResponseEntity.ok(result);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<PostDtoWithInt> filterPageALL(
 			@RequestParam int page,
@@ -86,7 +88,36 @@ public class SearchController {
 		PostDtoWithInt postDtoWithInt = searchService.PostsByFilters(jobDto, page, size);
         return ResponseEntity.ok(postDtoWithInt);
 	}
+	
+	//goodpost 삭제 기능 있어야함, 이친구는 like 있어야 접근 가능
+	@PostMapping("like")
+	public ResponseEntity<List<Integer>> GoodPostSend(
+			@RequestParam int page,
+			@RequestParam int size,
+			@RequestBody Map<String, Integer> request ) {
+	    Integer userNumObj = request.get("userNum");
+	    Integer infoIdObj = request.get("infoId");
+	    Integer flagObj = request.get("flag");
 
+	    if (userNumObj == null || infoIdObj == null || flagObj == null) {
+	    	System.out.println("no");
+	        return ResponseEntity.badRequest().build();
+	    }
+
+	    int userNum = userNumObj.intValue();
+	    int infoId = infoIdObj.intValue();
+	    int flag = flagObj.intValue();
+	    
+		if(flag == 0) {//추가
+			List<Integer>gp_list = signupservice.goodPostInsert(userNum, infoId);
+			return ResponseEntity.ok(gp_list);
+		}
+		else if(flag == 1){//삭제
+			List<Integer>gp_list = signupservice.goodPostDelete(userNum, infoId);
+			return ResponseEntity.ok(gp_list);
+		}else return null;
+	}
+	
 	@GetMapping("change")
 	public boolean changetojavaSerialization(){
 		searchService.listToString();
@@ -94,7 +125,6 @@ public class SearchController {
 		return true;
 	}
 	
-
 	/*
 	@PostMapping("test")
 	public ResponseEntity<Page<PostDto>> filterPaging(

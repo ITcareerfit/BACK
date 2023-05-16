@@ -16,7 +16,9 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.HashMap;
 
 @RequiredArgsConstructor
 @Service
@@ -62,7 +64,7 @@ public class SignUpService {
 	}
 	
 	//user좋아요 기능 추가
-	public List<PostDto> goodPostInsert(int userNum, int infoId) {
+	public List<Integer> goodPostInsert(int userNum, int infoId) {
 		USER user = userRepository.findByUserNum(userNum);
 		
 		List<Integer>GPost = user.getGoodPosts();
@@ -72,38 +74,12 @@ public class SignUpService {
 		GPost.add(infoId);
 		user.setGoodPosts(GPost);
 		userRepository.save(user);
-		
-		List<PostDto> postDtos = new ArrayList<>();
-		
-		for(int id : GPost) {
-			POST post = postRepository.findByInfoId(id);
-    		PostDto postDto = new PostDto();
-    		
-    		postDto.setInfoId(post.getInfoId());
-    		postDto.setInfoCpName(post.getInfoCpName());
-    		postDto.setTitle(post.getTitle());
-    		postDto.setDeadline(post.getDeadline());
-    		postDto.setType(post.getType());
-    		postDto.setDDay(post.getDDay());
-    		postDto.setInfoPos(post.getInfoPos());
-    		postDto.setInfoTech(post.getInfoTech());
-    		postDto.setInfoPosList(post.getInfoPosList());
-    		postDto.setInfoTechList(post.getInfoTechList());
-    		postDto.setInfoLoc(post.getInfoLoc());
-    		postDto.setMaxCareer(post.getMaxCareer());
-    		postDto.setMinCareer(post.getMinCareer());
-    		postDto.setMaxPay(post.getMaxPay());
-    		postDto.setMinPay(post.getMinPay());
-    		postDto.setContent(post.getContent());
-
-    		postDtos.add(postDto);
-		}
-		
-		return postDtos;
+				
+		return GPost;
 	}
 
 	//user좋아요 기능 삭제
-	public List<PostDto> goodPostDelete(int userNum, int infoId) {
+	public List<Integer> goodPostDelete(int userNum, int infoId) {
 		USER user = userRepository.findByUserNum(userNum);
 		
 		List<Integer>GPost = user.getGoodPosts();
@@ -114,9 +90,31 @@ public class SignUpService {
 		user.setGoodPosts(GPost);
 		userRepository.save(user);
 		
+		return GPost;
+	}
+	
+	public List<Integer> user_GPosts_List(Integer userNum) {
+		USER user = userRepository.findByUserNum(userNum);
+		
+		List<Integer>GPost = user.getGoodPosts();
+		userRepository.save(user);
+		return GPost;
+	}
+	public List<PostDto> GPosts_info(Integer userNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public Map<String, Object> user_GPosts(Integer userNum, int flag) {
+		USER user = userRepository.findByUserNum(userNum);
+		
+		List<Integer>GPost = user.getGoodPosts();	
 		List<PostDto> postDtos = new ArrayList<>();
 		
+		int i=0;
 		for(int id : GPost) {
+			if(flag == 3 && i > 2) break;
+			i++;
 			POST post = postRepository.findByInfoId(id);
     		PostDto postDto = new PostDto();
     		
@@ -140,7 +138,14 @@ public class SignUpService {
     		postDtos.add(postDto);
 		}
 		
-		return postDtos;
+		
+		Map<String, Object> result = new HashMap<>();
+		//result.put("user_info", user);
+		result.put("user_gp_list", GPost);
+		result.put("gp_list_info", postDtos);
+		
+		// TODO Auto-generated method stub
+		return result;
 	}
     
     /*//상세보기
