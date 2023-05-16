@@ -5,7 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,15 +19,17 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Entity(name = "positions")
+@Data
+@IdClass(posPK.class)
 public class POSITIONS {
 	//https://wikidocs.net/161165
 	@Id
 	private String posName;
-	
-	@Column(nullable = false, length = 45)
-	private String category;
+	@Id
+	private int year;
+	@Id
+	private int month;
+	@Id
 	@Column
 	private int total;
-	private int year;
-	private int month;
 }
