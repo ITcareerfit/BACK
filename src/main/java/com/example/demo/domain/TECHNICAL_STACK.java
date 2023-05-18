@@ -35,11 +35,12 @@ public class TECHNICAL_STACK {
     private int year;
 	@Id
     private int month;
+	@Id
+	private String posName;
 	
 	@Column(nullable = false)
 	private int techType;
 	@Column(columnDefinition = "int default 0")
 	private int total;
-	@Column 
-	private String posName;
+	
 }
