@@ -36,9 +36,13 @@ public class Technical_StackService {
 	public Map<String, Object> findTopSixLan(int year, int month) {
 		//상위 6개 노출
 		List<TECHNICAL_STACK> lan_list = technical_stackrepository.findTopSix(year, month);
+		int etc = technical_stackrepository.findEtc(year, month);
+		int total = technical_stackrepository.findTotalMonth(year, month);
 		
 		Map<String, Object> result = new HashMap<>();
 		
+		result.put("total", total);
+		result.put("etc", etc);
 		result.put("lan_list", lan_list);
 		result.put("language", lan_list.get(0).getTechName());
 		
@@ -55,7 +59,7 @@ public class Technical_StackService {
 		POSITIONS top_jop = positionrepository.findTopJob(jobList.get(0), jobList.get(1), jobList.get(2), year, month);
 		
 		Map<String, Object> result = new HashMap<>();
-	     
+		
 		result.put("job", top_jop.getPosName());
 		result.put("job1", job1);
 		result.put("job2", job2);

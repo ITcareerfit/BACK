@@ -20,7 +20,20 @@ public interface Technical_StackRepository extends JpaRepository<TECHNICAL_STACK
 			+ "FROM technical_stack t "
 			+ "where month = :month and year = :year "
 			+ "and tech_type = 0 "
-			+ "order by total desc limit 6 ", nativeQuery = true)
+			+ "order by total desc limit 5 ", nativeQuery = true)
 	List<TECHNICAL_STACK> findTopSix(@Param("year")int year, @Param("month")int month);
 
+	@Query(value = "SELECT sum(subquery.total)"
+			+ "FROM(SELECT t.total "
+			+ "FROM technical_stack t "
+			+ "where month = :month and year = :year and tech_type = 0 "
+			+ "order by t.total desc "
+			+ "LIMIT 18446744073709551615 OFFSET 5 ) as subquery ", nativeQuery = true)
+	int findEtc(@Param("year")int year, @Param("month")int month);
+
+	@Query(value = "SELECT sum(t.total) "
+			+ "FROM technical_stack t "
+			+ "where month = :month and year = :year and tech_type = 0 ", nativeQuery = true)
+	int findTotalMonth(@Param("year")int year, @Param("month")int month);
+	
 }

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +32,35 @@ import lombok.RequiredArgsConstructor;
 public class TrendController {
 	private final Technical_StackService technical_stackservice;
 	
+	@GetMapping
+	public ResponseEntity<Map<String, Object>> findTrendbyGet(
+			@RequestParam int year, int month ) {
+	    List<String> jobList = new ArrayList<>();
+	    //["프론트엔드","ios","서버/백엔드"]
+	    jobList.add("서버/백엔드");
+	    jobList.add("ios");
+	    jobList.add("프론트엔드");
+	    String job = "서버/백엔드";
+		
+	    //1번 트랜드 언어별 분석
+	    Map<String, Object> top_lan =technical_stackservice.findTopSixLan(year, month);  
+	    
+	    //2번 직무별 분석
+	    Map<String, Object> three_jobs =technical_stackservice.findThreePos(year, month, jobList);
+	    
+	    //3번
+	    
+	    
+	    Map<String, Object> result = new HashMap<>();
+	     
+		result.put("trend1", top_lan); 
+		result.put("trend2", three_jobs); 
+		return ResponseEntity.ok(result);
+	}
+	
+	
 	@PostMapping
-	public ResponseEntity<Map<String, Object>> findTrend(
+	public ResponseEntity<Map<String, Object>> findTrendbyPost(
 			@RequestBody Map<String, Object> request ) {
 	    Integer yearObj = (Integer)request.get("year");
 	    Integer monthObj = (Integer)request.get("month");
