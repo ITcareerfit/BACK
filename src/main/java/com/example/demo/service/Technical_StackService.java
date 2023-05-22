@@ -42,7 +42,7 @@ public class Technical_StackService {
 		Map<String, Object> result = new HashMap<>();
 		
 		result.put("total", total);
-		result.put("etc", etc);
+		result.put("etc", 20);
 		result.put("lan_list", lan_list);
 		result.put("language", lan_list.get(0).getTechName());
 		
@@ -65,6 +65,16 @@ public class Technical_StackService {
 		result.put("job2", job2);
 		result.put("job3", job3);
 		
+		return result;
+	}
+
+	public Map<String, Object> findThreeStacks(int year, int month, String job) {
+		List<TECHNICAL_STACK> stacks =technical_stackrepository.findStacks(job, year, month);
+		String stack = stacks.get(0).getTechName();
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("stacks", stacks );
+		result.put("stack", stack );
 		return result;
 	}
 
