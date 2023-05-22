@@ -66,7 +66,7 @@ public class MyPageController {
 	//사실 삭제만 가능
 	@PostMapping("/{userNum}/goodpost")
 	public ResponseEntity<List<Integer>> GoodPostSend(
-			@PathVariable Integer userNum,
+			@PathVariable int userNum,
 			@RequestBody Map<String, Integer> request ) {
 	    //Integer userNumObj = request.get("userNum");
 	    Integer infoIdObj = request.get("infoId");
@@ -77,16 +77,16 @@ public class MyPageController {
 	        return ResponseEntity.badRequest().build();
 	    }
 
-	    int usernum = userNum.intValue();
+	    //int usernum = userNum.intValue();
 	    int infoId = infoIdObj.intValue();
 	    int flag = flagObj.intValue();
-	    
+	    System.out.println("yes");
 		if(flag == 0) {//추가
-			List<Integer>gp_list = signupservice.goodPostInsert(usernum, infoId);
+			List<Integer>gp_list = signupservice.goodPostInsert(userNum, infoId);
 			return ResponseEntity.ok(gp_list);
 		}
 		else if(flag == 1){//삭제
-			List<Integer>gp_list = signupservice.goodPostDelete(usernum, infoId);
+			List<Integer>gp_list = signupservice.goodPostDelete(userNum, infoId);
 			return ResponseEntity.ok(gp_list);
 		}else return null;
 	}

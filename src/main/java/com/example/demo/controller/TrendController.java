@@ -48,8 +48,8 @@ public class TrendController {
 	    //2번 직무별 분석
 	    Map<String, Object> three_jobs =technical_stackservice.findThreePos(year, month, jobList);
 	    
-	    //3번
-	    
+	    //3번 직무별 프레임워크 분석
+	    //Map<String, Object> three_stacks =technical_stackservice.findThreeStack(year, month, jobList);
 	    
 	    Map<String, Object> result = new HashMap<>();
 	     
@@ -79,12 +79,13 @@ public class TrendController {
 	    Map<String, Object> three_jobs =technical_stackservice.findThreePos(year, month, jobList);
 	    
 	    //3번
-	    
+	    Map<String, Object> three_stacks =technical_stackservice.findThreeStacks(year, month, job);
 	    
 	    Map<String, Object> result = new HashMap<>();
 	     
 		result.put("trend1", top_lan); 
-		result.put("trend2", three_jobs); 
+		result.put("trend2", three_jobs);
+		result.put("trend3", three_stacks);
 		return ResponseEntity.ok(result);
 	}
 	

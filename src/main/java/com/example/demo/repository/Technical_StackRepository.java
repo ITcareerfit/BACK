@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.demo.domain.COMPANY;
+import com.example.demo.domain.POSITIONS;
 import com.example.demo.domain.POST;
 import com.example.demo.domain.TECHNICAL_STACK;
 
@@ -35,5 +36,19 @@ public interface Technical_StackRepository extends JpaRepository<TECHNICAL_STACK
 			+ "FROM technical_stack t "
 			+ "where month = :month and year = :year and tech_type = 0 ", nativeQuery = true)
 	int findTotalMonth(@Param("year")int year, @Param("month")int month);
+
+	//각 직군별 최상위 스택 달마다 total 정보 보내주는 쿼리
+	@Query(value = "SELECT t.tech_name, t.month, t.tech_type, t.year, t.total, t.pos_name "
+			+ "FROM itcareerfit.technical_stack t "
+			+ "JOIN ( "
+			+ "    SELECT tech_name, SUM(total) AS sumtotal "
+			+ "    FROM itcareerfit.technical_stack "
+			+ "    WHERE tech_type = 1 AND month <= 4 AND year = 2023 AND pos_name = '서버/백엔드' "
+			+ "    GROUP BY tech_name "
+			+ "    ORDER BY sumtotal DESC "
+			+ "    LIMIT 3 "
+			+ ") t2 ON t.tech_name = t2.tech_name "
+			+ "where tech_type = 1 AND month <= 4 AND year = 2023 AND pos_name = '서버/백엔드'; ", nativeQuery = true)
+	List<TECHNICAL_STACK> findStacks(@Param("job")String job, @Param("year")int year, @Param("month")int month);
 	
 }

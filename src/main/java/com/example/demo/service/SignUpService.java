@@ -30,6 +30,7 @@ public class SignUpService {
     @Transactional
     public USER register(USER user) {
     	System.out.println(user.getPos());
+    	System.out.println(user.getBirth());
     	userRepository.save(user);
     	
     	if(userRepository.existsById(user.getEmail())) {
@@ -71,10 +72,10 @@ public class SignUpService {
 		if (GPost == null) {//NullPointerException 오류 발생하여 추가
 		    GPost = new ArrayList<Integer>();
 		}
-		GPost.add(infoId);
+		if(!GPost.contains(infoId)) GPost.add(infoId);
 		user.setGoodPosts(GPost);
 		userRepository.save(user);
-				
+
 		return GPost;
 	}
 
@@ -99,10 +100,6 @@ public class SignUpService {
 		List<Integer>GPost = user.getGoodPosts();
 		userRepository.save(user);
 		return GPost;
-	}
-	public List<PostDto> GPosts_info(Integer userNum) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	public Map<String, Object> user_GPosts(Integer userNum, int flag) {
@@ -144,7 +141,6 @@ public class SignUpService {
 		result.put("user_gp_list", GPost);
 		result.put("gp_list_info", postDtos);
 		
-		// TODO Auto-generated method stub
 		return result;
 	}
     
