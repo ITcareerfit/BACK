@@ -21,6 +21,7 @@ public interface Technical_StackRepository extends JpaRepository<TECHNICAL_STACK
 			+ "FROM technical_stack t "
 			+ "where month = :month and year = :year "
 			+ "and tech_type = 0 "
+			+ "and pos_name = ''"
 			+ "order by total desc limit 5 ", nativeQuery = true)
 	List<TECHNICAL_STACK> findTopSix(@Param("year")int year, @Param("month")int month);
 
@@ -28,13 +29,15 @@ public interface Technical_StackRepository extends JpaRepository<TECHNICAL_STACK
 			+ "FROM(SELECT t.total "
 			+ "FROM technical_stack t "
 			+ "where month = :month and year = :year and tech_type = 0 "
+			+ "and pos_name = ''"
 			+ "order by t.total desc "
 			+ "LIMIT 18446744073709551615 OFFSET 5 ) as subquery ", nativeQuery = true)
 	int findEtc(@Param("year")int year, @Param("month")int month);
 
 	@Query(value = "SELECT sum(t.total) "
 			+ "FROM technical_stack t "
-			+ "where month = :month and year = :year and tech_type = 0 ", nativeQuery = true)
+			+ "where month = :month and year = :year and tech_type = 0 "
+			+ "and pos_name = ''", nativeQuery = true)
 	int findTotalMonth(@Param("year")int year, @Param("month")int month);
 
 	//각 직군별 최상위 스택 달마다 total 정보 보내주는 쿼리

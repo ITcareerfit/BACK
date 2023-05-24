@@ -42,7 +42,7 @@ public class Technical_StackService {
 		Map<String, Object> result = new HashMap<>();
 		
 		result.put("total", total);
-		result.put("etc", 20);
+		result.put("etc", etc);
 		result.put("lan_list", lan_list);
 		result.put("language", lan_list.get(0).getTechName());
 		
