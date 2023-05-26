@@ -15,7 +15,12 @@ import com.example.demo.domain.TECHNICAL_STACK;
 //jpa 사용법+sql문 받아옴
 public interface Technical_StackRepository extends JpaRepository<TECHNICAL_STACK, String> {
 
-	List<TECHNICAL_STACK> findByYear(int i);
+	@Query(value = "SELECT t.tech_name, t.month, t.tech_type, t.year, t.total, t.pos_name "
+			+ "FROM technical_stack t "
+			+ "where year = :year "
+			+ "and tech_type = 1 "
+			+ "and pos_name = ''", nativeQuery = true)
+	List<TECHNICAL_STACK> findByYear(@Param("year")int year);
 
 	@Query(value = "SELECT t.tech_name, t.month, t.tech_type, t.year, t.total, t.pos_name "
 			+ "FROM technical_stack t "
@@ -46,12 +51,11 @@ public interface Technical_StackRepository extends JpaRepository<TECHNICAL_STACK
 			+ "JOIN ( "
 			+ "    SELECT tech_name, SUM(total) AS sumtotal "
 			+ "    FROM itcareerfit.technical_stack "
-			+ "    WHERE tech_type = 1 AND month <= 4 AND year = 2023 AND pos_name = '서버/백엔드' "
+			+ "    WHERE tech_type = 1 AND month <= :month AND year = :year AND pos_name = :job "
 			+ "    GROUP BY tech_name "
 			+ "    ORDER BY sumtotal DESC "
 			+ "    LIMIT 3 "
 			+ ") t2 ON t.tech_name = t2.tech_name "
-			+ "where tech_type = 1 AND month <= 4 AND year = 2023 AND pos_name = '서버/백엔드'; ", nativeQuery = true)
+			+ "where tech_type = 1 AND month <= :month AND year = :year AND pos_name = :job ", nativeQuery = true)
 	List<TECHNICAL_STACK> findStacks(@Param("job")String job, @Param("year")int year, @Param("month")int month);
-	
 }

@@ -36,11 +36,26 @@ public interface PostRepository extends JpaRepository<POST, Integer> {
 	List<POST> findPostFilterPaging_v2(@Param("company")String company, @Param("jobType")String jobType, 
 			@Param("employee")int employee, @Param("pay")int pay, @Param("career")int career);
 	
+	
+	@Query(value = "SELECT p.info_id, p.content, p.dead, p.deadline, p.info_pos, p.info_tech, p.last_check, p.d_day, "
+			+ "p.max_career, p.min_career, p.max_pay, p.min_pay, p.title, p.type, p.info_cp_name, p.info_loc, p.info_pos_list, p.info_tech_list, p.reg_date "
+			+ "FROM post p, company c "
+			+ "WHERE p.info_cp_name = c.cp_name "
+			//+ "AND p.dead = 0 "//지난 공고 다 보여줌
+			+ "AND (c.cp_name = :company OR :company = '' OR :company is null) "
+			+ "AND (p.type = :jobType OR :jobType is null) "
+			+ "AND (c.emp_num >= :employee OR :employee is null) "
+			+ "AND (:pay is null OR p.min_pay > :pay OR (p.min_pay <= :pay AND p.max_pay >= :pay)) "
+			+ "AND (:career is null OR (p.min_career <= :career AND p.max_career >= :career) OR p.min_career > :career ) ", nativeQuery = true)
+	List<POST> findPostFilterPaging_v3(@Param("company")String company, @Param("jobType")String jobType, 
+			@Param("employee")int employee, @Param("pay")int pay, @Param("career")int career);
+	
+	
 	@Query(value = "SELECT p.info_id, p.content, p.dead, p.deadline, p.info_pos, p.info_tech, p.last_check, p.d_day, "
 			+ "p.max_career, p.min_career, p.max_pay, p.min_pay, p.title, p.type, p.info_cp_name, p.info_loc, p.info_pos_list, p.info_tech_list, p.reg_date "
 			+ "FROM post p "
-			+ "WHERE p.dead = 0 "
-			+ "AND p.info_cp_name = :cpname ", nativeQuery = true)
+			//+ "WHERE p.dead = 0 "
+			+ "WHERE p.info_cp_name = :cpname ", nativeQuery = true)
 	List<POST> findvaluePosts(@Param("cpname")String name);
 
 /*	

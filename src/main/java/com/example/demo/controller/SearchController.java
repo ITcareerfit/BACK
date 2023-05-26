@@ -89,6 +89,14 @@ public class SearchController {
         return ResponseEntity.ok(postDtoWithInt);
 	}
 	
+	@GetMapping("change")
+	public boolean changetojavaSerialization(){
+		searchService.listToString();
+		
+		return true;
+	}
+	
+	/*
 	//goodpost 삭제 기능 있어야함, 이친구는 like 있어야 접근 가능
 	@PostMapping("like")
 	public ResponseEntity<List<Integer>> GoodPostSend(
@@ -117,13 +125,7 @@ public class SearchController {
 			return ResponseEntity.ok(gp_list);
 		}else return null;
 	}
-	
-	@GetMapping("change")
-	public boolean changetojavaSerialization(){
-		searchService.listToString();
-		
-		return true;
-	}
+	*/
 	
 	/*
 	@PostMapping("test")

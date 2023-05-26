@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,10 +52,16 @@ public class ValueController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<PostDto>> valuePosts(
+	public ResponseEntity<Map<String, Object>> valuePosts(
 			@RequestParam String cpName){
 		List<PostDto>postDtos = valueservice.valuecomPosts(cpName);
+		String culture= valueservice.findCulture(cpName);
 		
-		return ResponseEntity.ok(postDtos);
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("postDto", postDtos);
+		result.put("culture", culture);
+		return ResponseEntity.ok(result);
 	}
+	
 }

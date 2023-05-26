@@ -70,7 +70,14 @@ public class Technical_StackService {
 
 	public Map<String, Object> findThreeStacks(int year, int month, String job) {
 		List<TECHNICAL_STACK> stacks =technical_stackrepository.findStacks(job, year, month);
-		String stack = stacks.get(0).getTechName();
+		
+		int t = stacks.size()/3;
+		List<String> stack = new ArrayList<>(); 
+		stack.add(stacks.get(0).getTechName());
+		stack.add(stacks.get(t).getTechName());
+		stack.add(stacks.get(t*2).getTechName());	
+		
+		
 		Map<String, Object> result = new HashMap<>();
 		
 		result.put("stacks", stacks );

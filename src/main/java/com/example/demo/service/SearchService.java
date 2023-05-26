@@ -72,10 +72,13 @@ public class SearchService {
 		int career = jobDto.getCareer();
 		List<String> jobList = jobDto.getJob();
 		List<String> stackList = jobDto.getStack();
+		int show = jobDto.getShow();
 			    
 		//필터링
-		List<POST> posts = postRepository.findPostFilterPaging_v2(company, jobType, employee, pay, career);
-	
+		List<POST> posts = new ArrayList<>();
+		if(show == 1) posts = postRepository.findPostFilterPaging_v3(company, jobType, employee, pay, career);
+		else posts = postRepository.findPostFilterPaging_v2(company, jobType, employee, pay, career);//지난 공고 다 보여줌
+		
     	List<PostDto> postDtos = new ArrayList<>();
     	
     	for(POST post: posts) {

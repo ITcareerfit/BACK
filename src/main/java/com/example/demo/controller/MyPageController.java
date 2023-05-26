@@ -45,14 +45,19 @@ public class MyPageController {
 	}
 	
 	@PostMapping("/{userNum}")//기업 관련 공고
-	public ResponseEntity<List<PostDto>> companyallocatedPosts(
+	public ResponseEntity<Map<String, Object>> companyallocatedPosts(
 			@PathVariable Integer userNum, 
 			@RequestParam String cpName) {
+		
 		List<PostDto>postDtos = valueservice.valuecomPosts(cpName);
-		return ResponseEntity.ok(postDtos); 
+		Map<String, Object> result = new HashMap<>();
+	    
+		String culture= valueservice.findCulture(cpName);
+		
+		result.put("postDto", postDtos);
+		result.put("culture", culture);
+		return ResponseEntity.ok(result); 
 	}
-	
-	//goodpost 삭제 기능 있어야함
 	
 	//goodpost로 접근시 모든 정보 보냄
 	@GetMapping("/{userNum}/goodpost")

@@ -73,7 +73,8 @@ public class ValueService {
 		    for (int i = 0; i < comLists.size(); i++) {
 		        comLists.get(i)[idx] = Math.abs((double) comLists.get(i)[idx] - value);
 		    }
-		    Collections.sort(comLists, Comparator.comparingDouble((Object[] o) -> (double) o[idx]).reversed());
+		    //Collections.sort(comLists, Comparator.comparingDouble((Object[] o) -> (double) o[idx]).reversed());
+		    Collections.sort(comLists, Comparator.comparingDouble((Object[] o) -> (double) o[idx]));
 		    if(t == 0) comLists.subList(41, comLists.size()).clear();
 		    else if(t == 1)comLists.subList(31, comLists.size()).clear();
 		    else if(t == 2)comLists.subList(21, comLists.size()).clear();
@@ -127,5 +128,13 @@ public class ValueService {
     	}
 		
 		return postDtos;
+	}
+
+	public String findCulture(String cpName) {
+		COMPANY company = companyrepository.findByCpName(cpName);
+		if(company != null) {
+			String culture = company.getCulture();
+			return culture;
+		}else return null;
 	}
 }

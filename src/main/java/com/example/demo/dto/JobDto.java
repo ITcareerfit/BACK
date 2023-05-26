@@ -14,6 +14,7 @@ public class JobDto {
     private int career;
     private List<String> job;
     private List<String> stack;
+    private int show;
     
     public String getCompany() {
         return company;
@@ -62,5 +63,11 @@ public class JobDto {
     }
     public void setStack(List<String> stack) {
     	this.stack = stack;
+    }
+    public Integer getShow() {
+    	return show;
+    }
+    public void setShow(int show) {
+    	this.show = show;
     }
 }
