@@ -9,6 +9,14 @@
 ```git
 📌 Springboot, JPA, Gradle, DTO, MYSQL, PostMan, STS4
 ```
+&nbsp;&nbsp;⭐ <strong>ERD & 시스템 구성도</strong> <br />
+<div align="center">
+      <img src="https://github.com/dahyunko/dahyunko/assets/101400650/d7950de8-51a6-4715-a264-2c91b1525479" width="600" >
+      <p>[ERP]</p></br>
+      <img src="https://github.com/dahyunko/dahyunko/assets/101400650/208514ae-7a36-4e75-8b3c-b94f4a408036" width="600" >
+      <p>[시스템 구성도]</p>
+</div>
+
 <br />
 
 ## Function1. Value <br/>
