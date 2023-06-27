@@ -3,6 +3,13 @@
 ```git
 ⚡ 2023.03 ~ 2023.06
 ```
+
+&nbsp;&nbsp; <strong>ITCareerFit: </strong> IT분야별 트렌드 분석 및 개인화 맞춤 일자리 추천 서비스
+<br />
+
+&nbsp;&nbsp;⭐ 나와 기업가치관 추천<br />
+&nbsp;&nbsp;⭐ 직업 유형, 스택 종류, 회사명 등 7가지의 카테고리 검색<br />
+&nbsp;&nbsp;⭐ 2023년도 월별 기술 및 스택 트랜드 제공<br />
 <br />
 
 ## Using Stacks <br/>
