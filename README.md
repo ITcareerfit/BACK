@@ -26,7 +26,7 @@
 
 <br />
 
-## Function1. Value <br/>
+## 1. Value <br/>
 ```git
 📌 ValueController.js, ValueDto, sort
 ```
@@ -52,7 +52,7 @@
   </div>
 <br />
 
-## Function2. Search <br/>
+## 2. Search <br/>
 ```git
 📌 SearchController.js, PostDto, Query, DB
 ```
@@ -76,7 +76,7 @@
       <img src="https://github.com/ITcareerfit/FRONT/assets/96722691/dbd65567-acb1-4e70-8d2d-b96a5b2c855e"  width="800" >
 </div>
 
-## Function3. Trend <br/>
+## 3. Trend <br/>
 ```git
 📌 TrendController.js, PostDto, Query, DB
 ```
