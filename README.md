@@ -21,7 +21,7 @@
       <img src="https://github.com/ITcareerfit/BACK/assets/101400650/81b33f73-166a-4b0a-bfcf-0e7a9b3e1ab2" width="600" >
       <p>[시스템 구성도]</p>
       <img src="https://github.com/dahyunko/dahyunko/assets/101400650/d7950de8-51a6-4715-a264-2c91b1525479" width="600" >
-      <p>[ERP]</p></br>
+      <p>[ERD]</p></br>
 </div>
 
 <br />
